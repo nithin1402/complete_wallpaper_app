@@ -2,10 +2,11 @@ import 'package:complete_wallpaper_app/app_widgets/wallpaper_bg_widget.dart';
 import 'package:complete_wallpaper_app/constants/app_constantss.dart';
 import 'package:complete_wallpaper_app/data/remote/api_helper.dart';
 import 'package:complete_wallpaper_app/data/repository/wallpaper_repository.dart';
+import 'package:complete_wallpaper_app/screens/detail_wallpaper_page.dart';
 import 'package:complete_wallpaper_app/screens/home/cubit/home_cubit.dart';
 import 'package:complete_wallpaper_app/screens/home/cubit/home_state.dart';
 import 'package:complete_wallpaper_app/screens/search/cubit/search_cubit.dart';
-import 'package:complete_wallpaper_app/screens/searched_wallpaper_page.dart';
+import 'package:complete_wallpaper_app/screens/search/searched_wallpaper_page.dart';
 import 'package:complete_wallpaper_app/utils/util_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,7 +103,11 @@ class _HomePageState extends State<HomePage> {
                           var eachPhoto = state.listPhotos[index];
                           return Padding(
                             padding: EdgeInsets.only( left: 11,right: index==state.listPhotos.length-1 ? 11 : 0),
-                            child: WallpaperBgWidget(imgUrl: eachPhoto.src!.portrait),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailWallpaperPage(imgModel: eachPhoto.src,)));
+                              },
+                                child: WallpaperBgWidget(imgUrl: eachPhoto.src!.portrait)),
                           );
                         });
                   }
